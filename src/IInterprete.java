@@ -1,3 +1,3 @@
 public interface IInterprete {
-    public Object evaluar(Object input);
+    public String evaluar(String input, Environment env) throws Exception;
 }
