@@ -1,3 +1,3 @@
-public class Environment implements IInterprete {
+public class Environment {
     
 }
