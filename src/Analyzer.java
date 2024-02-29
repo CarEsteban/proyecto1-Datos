@@ -29,7 +29,7 @@ public class Analyzer {
         System.out.println("Letras: " + letras);
         System.out.println("Dígitos: " + digitos);
         System.out.println("Espacios en blanco: " + espaciosBlancos);
-        System.out.println("Caracteres especiales: " + caracteresEspeciales);
+        System.out.println("Operadores: " + caracteresEspeciales);
     }
 
     private static void buscarYAlmacenar(String texto, String patron, ArrayList<String> lista) {
