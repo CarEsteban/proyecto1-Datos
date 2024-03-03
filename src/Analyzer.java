@@ -1,42 +1,37 @@
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Analyzer {
+    // Método para analizar el string de entrada
+    public ArrayList<String> analyze(String input) {
+        ArrayList<String> result = new ArrayList<>();
+        
+        // Patrón para operaciones aritméticas (ejemplo básico)
+        Pattern arithmeticPattern = Pattern.compile("[-+*/0-9]+");
 
-    String input;
-
-    public static void evaluar(String texto) {
-        // Patrones para identificar diferentes tipos de caracteres
-        String patronLetras = "[a-zA-Z]";
-        String patronDigitos = "\\d";
-        String patronEspaciosBlancos = "\\s";
-        String patronEspeciales = "\\W"; // No incluye espacios en blanco ni dígitos
-
-        // Listas para almacenar los caracteres separados
-        ArrayList<String> letras = new ArrayList<>();
-        ArrayList<String> digitos = new ArrayList<>();
-        ArrayList<String> espaciosBlancos = new ArrayList<>();
-        ArrayList<String> caracteresEspeciales = new ArrayList<>();
-
-        // Función para buscar y almacenar los caracteres según el patrón
-        buscarYAlmacenar(texto, patronLetras, letras);
-        buscarYAlmacenar(texto, patronDigitos, digitos);
-        buscarYAlmacenar(texto, patronEspaciosBlancos, espaciosBlancos);
-        buscarYAlmacenar(texto, patronEspeciales, caracteresEspeciales);
-
-        // Imprimir las listas
-        System.out.println("Letras: " + letras);
-        System.out.println("Dígitos: " + digitos);
-        System.out.println("Espacios en blanco: " + espaciosBlancos);
-        System.out.println("Operadores: " + caracteresEspeciales);
-    }
-
-    private static void buscarYAlmacenar(String texto, String patron, ArrayList<String> lista) {
-        Pattern pat = Pattern.compile(patron);
-        Matcher mat = pat.matcher(texto);
-        while (mat.find()) {
-            lista.add(mat.group());
+        // Verificar si es una operación aritmética
+        Matcher arithmeticMatcher = arithmeticPattern.matcher(input);
+        if (arithmeticMatcher.find()) {
+            result.add("1"); // Identificador para operación aritmética
+            for (char c : input.toCharArray()) {
+                result.add(String.valueOf(c));
+            }
+            return result;
         }
+
+        // Añadir más patrones y verificaciones según sea necesario
+
+
+
+
+    
+        // Si no coincide con ningún patrón
+        result.add("0"); // Identificador para "no reconocido"
+        for (char c : input.toCharArray()) {
+            result.add(String.valueOf(c));
+        }
+        return result;
     }
+
 }
