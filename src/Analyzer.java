@@ -4,34 +4,25 @@ import java.util.regex.Pattern;
 
 public class Analyzer {
     // Método para analizar el string de entrada
-    public ArrayList<String> analyze(String input) {
-        ArrayList<String> result = new ArrayList<>();
+    public int analyze(String input) {
+		// 
+		if (evaluate("^[(][ ]*+([a-z]+|[0-9]+)[ ]+([a-z]+|[0-9]+)[ ]*[-+*/][ ][)]$",input)) //para operaciones aritmeticas simples
+			return 1;
+        else if (evaluate("^\\(\\s*\\+\\s*([a-z]+|\\d+)\\s+([a-z]+|\\d+)\\s+[-+*/]\\s+\\(\\s*([a-z]+|\\d+)\\s+([a-z]+|\\d+)\\s+[-+*/]\\s+\\)\\s+\\)$", input))
+            return 2;
         
-        // Patrón para operaciones aritméticas (ejemplo básico)
-        Pattern arithmeticPattern = Pattern.compile("[-+*/0-9]+");
-
-        // Verificar si es una operación aritmética
-        Matcher arithmeticMatcher = arithmeticPattern.matcher(input);
-        if (arithmeticMatcher.find()) {
-            result.add("1"); // Identificador para operación aritmética
-            for (char c : input.toCharArray()) {
-                result.add(String.valueOf(c));
-            }
-            return result;
-        }
-
-        // Añadir más patrones y verificaciones según sea necesario
+        
+		//else if (evaluate("^[(][ ]*[-][ ]+([a-z]+|[0-9]+)[ ]+([a-z]+|[0-9]+)[ ]*[)]$",input)) //This is a simple add operation of 2 operands
+		//	return 2;
+		else 
+			return -1; 
+    }
 
 
-
-
-    
-        // Si no coincide con ningún patrón
-        result.add("0"); // Identificador para "no reconocido"
-        for (char c : input.toCharArray()) {
-            result.add(String.valueOf(c));
-        }
-        return result;
+    private static boolean evaluate(String base, String input){
+        Pattern pattern = Pattern.compile(base, Pattern.CASE_INSENSITIVE);
+	    Matcher matcher = pattern.matcher(input);
+	    return matcher.find();
     }
 
 }
