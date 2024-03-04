@@ -12,7 +12,7 @@ public class Main {
         System.out.println("Welcome to the LISP Compiler");
 
         while (keep) {
-            System.out.println("Enter an expression....");
+            System.out.println("Enter an expression...");
             input = scan.nextLine();
     
             result = analyzer.analyze(input);
@@ -20,9 +20,12 @@ public class Main {
             if(input.equals("exit")){
                 keep=false;
                 System.exit(0);
+            }else if(result==-1){
+                System.out.println("Sintaxis Error");
+            }else{
+                System.out.println(result);
             }
 
-            System.out.println(result);
         }
 
 

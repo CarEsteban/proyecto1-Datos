@@ -6,10 +6,10 @@ public class Analyzer {
     // Método para analizar el string de entrada
     public int analyze(String input) {
 		// 
-		if (evaluate("^[(][ ]*+([a-z]+|[0-9]+)[ ]+([a-z]+|[0-9]+)[ ]*[-+*/][ ][)]$",input)) //para operaciones aritmeticas simples
+		if (evaluate("^[(][ ]+((([0-9]+[ ])*)|(([+-/*]+[ ])*)|(([(]+[ ])*)|(([)]+[ ])*))+[)]$",input)) //para operaciones aritmeticas
 			return 1;
-        else if (evaluate("^\\(\\s*\\+\\s*([a-z]+|\\d+)\\s+([a-z]+|\\d+)\\s+[-+*/]\\s+\\(\\s*([a-z]+|\\d+)\\s+([a-z]+|\\d+)\\s+[-+*/]\\s+\\)\\s+\\)$", input))
-            return 2;
+        //else if (evaluate("^\\(\\s*\\+\\s*([a-z]+|\\d+)\\s+([a-z]+|\\d+)\\s+[-+*/]\\s+\\(\\s*([a-z]+|\\d+)\\s+([a-z]+|\\d+)\\s+[-+*/]\\s+\\)\\s+\\)$", input))
+          //  return 2;
         
         
 		//else if (evaluate("^[(][ ]*[-][ ]+([a-z]+|[0-9]+)[ ]+([a-z]+|[0-9]+)[ ]*[)]$",input)) //This is a simple add operation of 2 operands
