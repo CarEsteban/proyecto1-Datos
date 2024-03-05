@@ -15,7 +15,7 @@ public class Main {
             System.out.println("Enter an expression...");
             input = scan.nextLine();
     
-            result = analyzer.analyze(input);
+            result = analyzer.tokenizer(input);
 
             if(input.equals("exit")){
                 keep=false;
@@ -23,7 +23,8 @@ public class Main {
             }else if(result==-1){
                 System.out.println("Sintaxis Error");
             }else{
-                System.out.println(result);
+                //here the result of any operation
+                System.out.println("valid operation: "+result);
             }
 
         }

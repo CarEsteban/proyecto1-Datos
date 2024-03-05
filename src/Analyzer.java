@@ -4,22 +4,26 @@ import java.util.regex.Pattern;
 
 public class Analyzer {
     // Método para analizar el string de entrada
-    public int analyze(String input) {
-		// 
-		if (evaluate("^[(][ ]+((([0-9]+[ ])*)|(([+-/*]+[ ])*)|(([(]+[ ])*)|(([)]+[ ])*))+[)]$",input)) //para operaciones aritmeticas
+    public int tokenizer(String input) {
+		//tokens para operaciones aritmeticas 
+		if (analyzer("^[(][ ]+((([0-9]+[ ]))|(([+-/]+[ ]))|(([(]+[ ]))|(([)]+[ ])))+[)][ ]$",input)) //para operaciones aritmeticas
 			return 1;
-        //else if (evaluate("^\\(\\s*\\+\\s*([a-z]+|\\d+)\\s+([a-z]+|\\d+)\\s+[-+*/]\\s+\\(\\s*([a-z]+|\\d+)\\s+([a-z]+|\\d+)\\s+[-+*/]\\s+\\)\\s+\\)$", input))
-          //  return 2;
+        //tokens para quotes
+        else if (analyzer("^[(][ ]+(quote+[ ])((.))+[)][ ]$",input)) //para operaciones aritmeticas
+            return 2;
+        //tokens para quotes
+        else if (analyzer("^[(][ ]+(setq+[ ])+([a-z]+[ ])((.))+[)][ ]$",input)) //para operaciones aritmeticas
+            return 3;
         
         
-		//else if (evaluate("^[(][ ]*[-][ ]+([a-z]+|[0-9]+)[ ]+([a-z]+|[0-9]+)[ ]*[)]$",input)) //This is a simple add operation of 2 operands
+		//else if (analyzer("^[(][ ][-][ ]+([a-z]+|[0-9]+)[ ]+([a-z]+|[0-9]+)[ ][)]$",input)) //This is a simple add operation of 2 operands
 		//	return 2;
 		else 
 			return -1; 
     }
 
 
-    private static boolean evaluate(String base, String input){
+    private static boolean analyzer(String base, String input){
         Pattern pattern = Pattern.compile(base, Pattern.CASE_INSENSITIVE);
 	    Matcher matcher = pattern.matcher(input);
 	    return matcher.find();
