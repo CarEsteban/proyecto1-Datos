@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class ArithmeticOperations implements IFunction {
     public String processOperation(String input) {
         // Elimina los paréntesis, los espacios al principio y al final, y luego divide la expresión en tokens
