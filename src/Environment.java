@@ -24,4 +24,3 @@ public class Environment {
         variables.remove(name);
     }
 }
-
