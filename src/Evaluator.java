@@ -29,8 +29,8 @@ public class Evaluator implements IEvaluator {
     }
 
     private String evaluateArithmeticOperation(String expression, Environment env) {
-        ArithmeticOperation arithmeticOperation = new ArithmeticOperation(expression);
-        return arithmeticOperation.evaluate(env);
+        ArithmeticOperations arithmeticOperation = new ArithmeticOperations(expression);
+        return arithmeticOperation.apply(env);
     }
 
     private String evaluateQuote(String expression, Environment env) {
