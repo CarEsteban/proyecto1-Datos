@@ -29,7 +29,7 @@ public class Evaluator implements IEvaluator {
     }
 
     private String evaluateArithmeticOperation(String expression, Environment env) {
-        ArithmeticOperation arithmeticOperation = new ArithmeticOperation(expression);
+        ArithmeticOperations arithmeticOperation = new ArithmeticOperations(expression);
         return arithmeticOperation.evaluate(env);
     }
 
