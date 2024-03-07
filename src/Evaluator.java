@@ -12,7 +12,7 @@ public class Evaluator implements IEvaluator {
         String evaluatedResult = null;
 
         switch (result) {
-            case 1: // Operación aritmética
+            case 1: // Aritmetic operation
                 evaluatedResult = evaluateArithmeticOperation(expression, env);
                 break;
             case 2: // Quote
@@ -29,17 +29,17 @@ public class Evaluator implements IEvaluator {
     }
 
     private String evaluateArithmeticOperation(String expression, Environment env) {
-        
-        return "Result of arithmetic operation";
+        ArithmeticOperation arithmeticOperation = new ArithmeticOperation(expression);
+        return arithmeticOperation.evaluate(env);
     }
 
     private String evaluateQuote(String expression, Environment env) {
-       
-        return "Result of quote";
+        Quote quote = new Quote(expression);
+        return quote.evaluate(env);
     }
 
     private String evaluateSetQ(String expression, Environment env) {
-       
-        return "Result of SetQ";
+        SetQ setQ = new SetQ(expression);
+        return setQ.evaluate(env);
     }
 }
