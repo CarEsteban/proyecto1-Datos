@@ -10,11 +10,11 @@ public class ArithmeticOperations implements IFunction {
             String operator = tokens[0];
 
             // Los siguientes tokens son operandos
-            double operand1 = Double.parseDouble(tokens[1]);
-            double operand2 = Double.parseDouble(tokens[2]);
+            int operand1 = Integer.parseInt(tokens[1]);
+            int operand2 = Integer.parseInt(tokens[2]);
 
             // Realiza la operación aritmética
-            double result = 0;
+            int result = 0;
             switch (operator) {
                 case "+":
                     result = operand1 + operand2;
