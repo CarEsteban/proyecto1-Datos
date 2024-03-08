@@ -3,12 +3,13 @@ import static org.junit.Assert.assertEquals;
 
 public class ArithmeticOperationsTest {
 
+    Environment env = new Environment();
     @Test
     public void testAddition() {
         ArithmeticOperations arithmeticOperations = new ArithmeticOperations();
         String input = "(+ 3 5)";
 
-        assertEquals("Resultado de la operación: 8.0", arithmeticOperations.processOperation(input));
+        assertEquals("Resultado de la operación: 8.0", arithmeticOperations.execute(input, env));
     }
 
     @Test
@@ -16,7 +17,7 @@ public class ArithmeticOperationsTest {
         ArithmeticOperations arithmeticOperations = new ArithmeticOperations();
         String input = "(- 10 4)";
 
-        assertEquals("Resultado de la operación: 6.0", arithmeticOperations.processOperation(input));
+        assertEquals("Resultado de la operación: 6.0", arithmeticOperations.execute(input, env));
     }
 
     @Test
@@ -24,7 +25,7 @@ public class ArithmeticOperationsTest {
         ArithmeticOperations arithmeticOperations = new ArithmeticOperations();
         String input = "(* 6 7)";
 
-        assertEquals("Resultado de la operación: 42.0", arithmeticOperations.processOperation(input));
+        assertEquals("Resultado de la operación: 42.0", arithmeticOperations.execute(input, env));
     }
 
     @Test
@@ -32,7 +33,7 @@ public class ArithmeticOperationsTest {
         ArithmeticOperations arithmeticOperations = new ArithmeticOperations();
         String input = "(/ 20 4)";
 
-        assertEquals("Resultado de la operación: 5.0", arithmeticOperations.processOperation(input));
+        assertEquals("Resultado de la operación: 5.0", arithmeticOperations.execute(input, env));
     }
 
     @Test
@@ -40,6 +41,6 @@ public class ArithmeticOperationsTest {
         ArithmeticOperations arithmeticOperations = new ArithmeticOperations();
         String input = "(+ 3)";
 
-        assertEquals("Error en la expresión aritmética", arithmeticOperations.processOperation(input));
+        assertEquals("Error en la expresión aritmética", arithmeticOperations.execute(input, env));
     }
 }

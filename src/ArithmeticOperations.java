@@ -1,5 +1,5 @@
 public class ArithmeticOperations implements IFunction {
-    public String processOperation(String input) {
+    public String execute(String input, Environment env) {
         // Elimina los paréntesis, los espacios al principio y al final, y luego divide la expresión en tokens
         String[] tokens = input.trim().replaceAll("[()]", "").trim().split("\\s+");
 

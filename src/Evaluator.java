@@ -30,16 +30,16 @@ public class Evaluator implements IEvaluator {
 
     private String evaluateArithmeticOperation(String expression, Environment env) {
         ArithmeticOperations arithmeticOperation = new ArithmeticOperations();
-        return arithmeticOperation.processOperation(expression);
+        return arithmeticOperation.execute(expression, env);
     }
 
     // private String evaluateQuote(String expression, Environment env) {
     //     Quote quote = new Quote(expression);
-    //     return quote.evaluate(env);
+    //     return quote.execute(expression,env);
     // }
 
     // private String evaluateSetQ(String expression, Environment env) {
     //     SetQ setQ = new SetQ(expression);
-    //     return setQ.evaluate(env);
+    //     return setQ.execute(expression,env);
     // }
 }
