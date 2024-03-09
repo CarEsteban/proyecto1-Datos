@@ -7,13 +7,13 @@ public class Analyzer {
 		//tokens para operaciones aritmeticas 
 		if (analyzer("^[(][ ]+([+-/*]+[ ])((([0-9]+[ ]))|(([+-/*]+[ ]))|(([(]+[ ]))|(([)]+[ ])))+[)][ ]*$",input)) //para operaciones aritmeticas
 			return 1;
-        //tokens para quotes
-        else if (analyzer("^[(][ ]+(quote+[ ])((.))+[)][ ]*$",input)) //para operaciones aritmeticas
-            return 2;
         //tokens para setq
         else if (analyzer("^[(][ ]+(setq+[ ])+([a-z]+[ ])((.))+[)][ ]*$",input)) //para operaciones aritmeticas
+            return 2;
+        //tokens para quotes
+        else if (analyzer("^[(][ ]+(quote+[ ])((.))+[)][ ]*$",input)) //para operaciones aritmeticas
             return 3;
-        
+
 		else 
 			return -1; 
     }

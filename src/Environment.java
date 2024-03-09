@@ -19,10 +19,10 @@ public class Environment {
         variables.put(name, value);
     }
 
-    public Object getVariable(String name) {
+    public String getVariable(String name) {
         Object value = variables.get(name);
         if (value != null) {
-            return value;
+            return (String) value;
         } else if (parent != null) {
             return parent.getVariable(name);
         } else {
