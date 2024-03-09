@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws Exception {  
-        IEvaluator evaluator =  new Evaluator();
+    public static void main(String[] args) throws Exception {
+        IEvaluator evaluator = new Evaluator();
         Environment env = new Environment();
         Scanner scan = new Scanner(System.in);
         String input;
@@ -14,27 +14,23 @@ public class Main {
         IFunction setq = new SetQ();
         System.out.println(setq.execute("( setq x hola )", env));
 
-
-
-
         while (keep) {
             System.out.println("Enter an expression...");
             input = scan.nextLine();
-    
-            result = evaluator.evaluate(input,env);
 
-            if(input.equals("exit")){
-                keep=false;
+            result = evaluator.evaluate(input, env);
+
+            if (input.equals("exit")) {
+                keep = false;
                 System.exit(0);
-            }else if(result.equals("-1")){
+            } else if (result.equals("-1")) {
                 System.out.println("Sintaxis Error");
-            }else{
-                //here the result of any operation
+            } else {
+                // here the result of any operation
                 System.out.println(result);
             }
 
         }
-
 
     }
 }
