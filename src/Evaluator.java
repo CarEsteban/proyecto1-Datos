@@ -15,11 +15,11 @@ public class Evaluator implements IEvaluator {
             case 1: // Aritmetic operation
                 evaluatedResult = evaluateArithmeticOperation(expression, env);
                 return evaluatedResult;
-            // case 2: // Quote
+            case 2: // SetQ
+                evaluatedResult = evaluateSetQ(expression, env);
+                return evaluatedResult;
+            // case 3: // Quote
             //     evaluatedResult = evaluateQuote(expression, env);
-            //     return evaluatedResult;
-            // case 3: // SetQ
-            //     evaluatedResult = evaluateSetQ(expression, env);
             //     return evaluatedResult;
             default:
                 evaluatedResult = "Invalid expression";
@@ -38,8 +38,8 @@ public class Evaluator implements IEvaluator {
     //     return quote.execute(expression,env);
     // }
 
-    // private String evaluateSetQ(String expression, Environment env) {
-    //     SetQ setQ = new SetQ(expression);
-    //     return setQ.execute(expression,env);
-    // }
+    private String evaluateSetQ(String expression, Environment env) {
+        SetQ setQ = new SetQ();
+        return setQ.execute(expression,env);
+    }
 }
