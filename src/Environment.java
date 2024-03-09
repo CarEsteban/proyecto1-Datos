@@ -30,6 +30,26 @@ public class Environment {
         }
     }
 
+    // int variableEntera = (int) environment.getVariable("miVariableEntera");
+    public Integer getIntegerVariable(String name) {
+        Object value = getVariable(name);
+        if (value instanceof Integer) {
+            return (Integer) value;
+        } else {
+            throw new IllegalArgumentException("Variable '" + name + "' is not an integer.");
+        }
+    }
+
+    // string variableString = (String) environment.getVariable("miVariableString");
+    public String getStringVariable(String name) {
+        Object value = getVariable(name);
+        if (value instanceof String) {
+            return (String) value;
+        } else {
+            throw new IllegalArgumentException("Variable '" + name + "' is not a string.");
+        }
+    }
+
     public void setVariable(String name, Object value) {
         if (variables.containsKey(name)) {
             variables.put(name, value);
