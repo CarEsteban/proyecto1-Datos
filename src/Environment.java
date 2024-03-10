@@ -22,7 +22,7 @@ public class Environment {
     public String getVariable(String name) {
         Object value = variables.get(name);
         if (value != null) {
-            return (String) value;
+            return value.toString(); // Convertir el valor a cadena
         } else if (parent != null) {
             return parent.getVariable(name);
         } else {
