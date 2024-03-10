@@ -1,6 +1,5 @@
 import java.util.Arrays;
 
-import javax.print.DocFlavor.READER;
 
 public class Cond implements IFunction  {
     //para que funcione el cond, he imprimir en pantalla se usa quote
@@ -16,7 +15,7 @@ public class Cond implements IFunction  {
         resp1 = tokens[5];
         resp2 = tokens[7];
 
-        
+        //falta hacer que se puedan tener espacios en la resp y manejarlo con el quote para seguir la estrcutura de lisp
         if (tokens.length >= 3 & tokens.length ==8) {
 
             switch (operator) {
