@@ -5,14 +5,17 @@ public class Analyzer {
     // Método para analizar el string de entrada
     public int tokenizer(String input) {
 		//tokens para operaciones aritmeticas 
-		if (analyzer("^[(][ ]+([+-/*]+[ ])((([0-9]+[ ]))|(([+-/*]+[ ]))|(([(]+[ ]))|(([)]+[ ])))+[)][ ]*$",input)) //para operaciones aritmeticas
+		if (analyzer("^[(][ ]+([+-/*]+[ ])((([0-9]+[ ]))|(([+-/*]+[ ]))|(([(]+[ ]))|(([)]+[ ])))+[)][ ]*$",input)) 
 			return 1;
         //tokens para setq
-        else if (analyzer("^[(][ ]+(setq+[ ])+([a-z]+[ ])((.))+[)][ ]*$",input)) //para operaciones aritmeticas
+        else if (analyzer("^[(][ ]+(setq+[ ])+([a-z]+[ ])((.))+[ ]+[)][ ]*$",input)) 
             return 2;
         //tokens para quotes
-        else if (analyzer("^[(][ ]+(quote+[ ])((.))+[)][ ]*$",input)) //para operaciones aritmeticas
+        else if (analyzer("^[(][ ]+(quote+[ ])((.))+[ ]+[)][ ]*$",input)) 
             return 3;
+        //otra forma de quotes
+        else if(analyzer("^[(][ ]+'(.)*[ ]+[)][ ]*$", input))
+            return 4;
 
 		else 
 			return -1; 
