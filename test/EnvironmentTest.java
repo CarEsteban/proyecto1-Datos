@@ -3,6 +3,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class EnvironmentTest {
+
     @Test
     public void testDefineAndGetVariable() {
         Environment env = new Environment();
@@ -13,8 +14,8 @@ public class EnvironmentTest {
         assertTrue(env.variableExists("myString"));
         assertFalse(env.variableExists("nonExistentVariable"));
 
-        assertEquals(Integer.valueOf(42), env.getIntegerVariable("myInteger"));
-        assertEquals("Hello", env.getStringVariable("myString"));
+        assertEquals("42", env.getVariable("myInteger"));
+        assertEquals("Hello", env.getVariable("myString"));
     }
 
     @Test
@@ -23,11 +24,11 @@ public class EnvironmentTest {
         env.defineVariable("myInteger", 42);
         env.defineVariable("myString", "Hello");
 
-        env.setVariable("myInteger", 100);
+        env.setVariable("myInteger", "100");
         env.setVariable("myString", "World");
 
-        assertEquals(Integer.valueOf(100), env.getIntegerVariable("myInteger"));
-        assertEquals("World", env.getStringVariable("myString"));
+        assertEquals("100", env.getVariable("myInteger"));
+        assertEquals("World", env.getVariable("myString"));
     }
 
     @Test
@@ -35,18 +36,7 @@ public class EnvironmentTest {
         Environment env = new Environment();
 
         assertFalse(env.variableExists("nonExistentVariable"));
-        try {
-            env.getIntegerVariable("nonExistentVariable");
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-            // Excepción esperada
-        }
-        try {
-            env.getStringVariable("nonExistentVariable");
-            fail("Expected IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
-            // Excepción esperada
-        }
+        assertNull(env.getVariable("nonExistentVariable"));
     }
 
     @Test
