@@ -11,10 +11,10 @@ public class Analyzer {
         else if (analyzer("^[(][ ]+(setq+[ ])+([a-z]+[ ])((.))+[ ]+[)][ ]*$",input)) 
             return 2;
         //tokens para quotes
-        else if (analyzer("^[(][ ]+(quote+[ ]|')((.))+[ ]+[)][ ]*$",input)) 
+        else if (analyzer("^[(][ ]+(quote+[ ]|'+[ ])((.))+[ ]+[)][ ]*$",input)) 
             return 3;
         //tokens para cond                  
-        else if(analyzer("^[(][ ]+(cond+[ ])[(][ ]+[(][ ]+(<|>|=|<=|>=)[ ]+(([a-z]+|[0-9]+)[ ]+)(([a-z]+|[0-9]+)[ ]+)[)][ ]+[(][ ]+(quote+[ ]|')(.)*[ ]+[)][ ]+[)][ ]*$", input))
+        else if(analyzer("^[(][ ]+(cond+[ ])[(][ ]+[(][ ]+(<|>|=|<=|>=|equal)[ ]+(([a-z]+|[0-9]+)[ ]+)(([a-z]+|[0-9]+)[ ]+)[)][ ]+[(][ ]+(quote+[ ]|'+[ ])(.)*[ ]+[)][ ]+[)][ ]+[(][ ]+(quote+[ ]|'+[ ])(.)*[ ]+[)][ ]+[)][ ]*$", input))
             return 4;
 
 		else 

@@ -1,10 +1,9 @@
 //unicamente se usa para verificar que tiene el tokens de información
-import java.util.Arrays;
+//import java.util.Arrays;
 
 public class SetQ implements IFunction {
 
     String key, value, chars; 
-
 
     @Override
     public String execute(String input, Environment env) {
