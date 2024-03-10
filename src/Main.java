@@ -11,12 +11,6 @@ public class Main {
 
         System.out.println("Welcome to the LISP Compiler");
 
-<<<<<<< HEAD
-        IFunction setq = new SetQ();
-        System.out.println(setq.execute("( setq x hola )", env));
-
-=======
->>>>>>> 5c3d2ba9e50d76a9223b907a9b5e5ee96808b72b
         while (keep) {
             System.out.println("Enter an expression...");
             input = scan.nextLine();

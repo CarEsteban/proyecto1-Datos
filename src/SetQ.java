@@ -23,7 +23,7 @@ public class SetQ implements IFunction {
             // Imprimir el array de tokens para depuración
             //System.out.println(Arrays.toString(tokens));
             
-            return key+": "+env.getVariable(key);
+            return key+": "+env.getStringVariable(key);
         } else {
             return "Error: input no válido.";
         }
