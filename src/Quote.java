@@ -1,6 +1,6 @@
 public class Quote implements IFunction {
     @Override
-    public String processOperation(String expression) {
+    public String execute(String expression, Environment env) {
         // Mostrar la expresión
         System.out.println("Expresión original: " + expression);
 
