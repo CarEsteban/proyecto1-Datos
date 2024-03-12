@@ -1,17 +1,24 @@
 public class Quote implements IFunction {
+
+    private String expression;
+
+    public Quote(String expression) {
+        this.expression = expression;
+    }
+
     @Override
-    public String execute(String expression, Environment env) {
-        // Mostrar la expresión
-        System.out.println("Expresión original: " + expression);
-
-        // Pasar string y borrar la primera parte
-        String[] parts = expression.split("\\s+", 2);
-        if (parts.length < 2) {
-            return "Invalid quote expression";
+    public String evaluate(Environment env) {
+        String[] parts = expression.split(" ");
+        if (parts.length < 2 || !parts[0].equals("quote")) {
+            return "Syntax Error";
         }
-        String remaining = parts[1];
 
-        // Retornar la frase
-        return remaining.trim();
+        String text = parts[1];
+        boolean hasVariable = env.variableExists(text);
+        if (hasVariable) {
+            text = env.getStringVariable(text);
+        }
+
+        return text;
     }
 }
