@@ -6,19 +6,18 @@ public class Quote implements IFunction {
         this.expression = expression;
     }
 
-    @Override
+    
     public String evaluate(Environment env) {
-        String[] parts = expression.split(" ");
-        if (parts.length < 2 || !parts[0].equals("quote")) {
-            return "Syntax Error";
+        String expressionWithoutQuote = expression.substring(expression.indexOf(" ") + 1);
+        if (expressionWithoutQuote.startsWith("\"") && expressionWithoutQuote.endsWith("\"")) {
+            return expressionWithoutQuote.substring(1, expressionWithoutQuote.length() - 1);
+        } else {
+            String variableName = expressionWithoutQuote.trim();
+            if (env.variableExists(variableName)) {
+                return "quote " + env.getVariable(variableName);
+            } else {
+                return "sintax error";
+            }
         }
-
-        String text = parts[1];
-        boolean hasVariable = env.variableExists(text);
-        if (hasVariable) {
-            text = env.getStringVariable(text);
-        }
-
-        return text;
     }
 }
