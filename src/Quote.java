@@ -1,13 +1,6 @@
 public class Quote implements IFunction {
 
-    private String expression;
-
-    public Quote(String expression) {
-        this.expression = expression;
-    }
-
-    
-    public String evaluate(Environment env) {
+    public String execute(String expression,Environment env) {
         String expressionWithoutQuote = expression.substring(expression.indexOf(" ") + 1);
         if (expressionWithoutQuote.startsWith("\"") && expressionWithoutQuote.endsWith("\"")) {
             return expressionWithoutQuote.substring(1, expressionWithoutQuote.length() - 1);
