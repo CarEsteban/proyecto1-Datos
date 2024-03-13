@@ -10,7 +10,7 @@ public class Predicate implements IFunction {
 
         String command = parts[0].toLowerCase();
         String arguments = parts[1];
-
+        
         switch (command) {
             case "atom":
                 return evalAtom(arguments, env);

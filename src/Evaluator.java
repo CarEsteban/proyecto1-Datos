@@ -24,6 +24,9 @@ public class Evaluator implements IEvaluator {
             case 4: // cond
                 evaluatedResult = evaluateCond(expression, env);
                 return evaluatedResult;
+            case 5: // cond
+                    evaluatedResult = evaluatePredicate(expression, env);
+                    return evaluatedResult;
             default:
                 evaluatedResult = "Invalid expression";
         }
@@ -49,5 +52,10 @@ public class Evaluator implements IEvaluator {
     private String evaluateCond(String expression, Environment env) {
         Cond cond = new Cond();
         return cond.execute(expression,env);
+    }
+
+    private String evaluatePredicate(String expression, Environment env) {
+        Predicate predicate = new Predicate();
+        return predicate.execute(expression,env);
     }
 }
