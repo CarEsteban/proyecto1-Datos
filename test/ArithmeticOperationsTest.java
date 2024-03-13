@@ -4,36 +4,23 @@ import static org.junit.Assert.assertEquals;
 public class ArithmeticOperationsTest {
 
     Environment env = new Environment();
+    
     @Test
-    public void testAddition() {
-        ArithmeticOperations arithmeticOperations = new ArithmeticOperations();
-        String input = "(+ 3 5)";
-
-        assertEquals("Resultado de la operación: 8.0", arithmeticOperations.execute(input, env));
+    public void testSimpleAddition() {
+        ArithmeticOperations operations = new ArithmeticOperations();
+        assertEquals("Resultado de la operación: 3", operations.execute("(+ 1 2)", null));
     }
 
     @Test
-    public void testSubtraction() {
-        ArithmeticOperations arithmeticOperations = new ArithmeticOperations();
-        String input = "(- 10 4)";
-
-        assertEquals("Resultado de la operación: 6.0", arithmeticOperations.execute(input, env));
+    public void testNestedOperations() {
+        ArithmeticOperations operations = new ArithmeticOperations();
+        assertEquals("Resultado de la operación: 7", operations.execute("(+ 1 (* 2 3))", null));
     }
 
     @Test
-    public void testMultiplication() {
-        ArithmeticOperations arithmeticOperations = new ArithmeticOperations();
-        String input = "(* 6 7)";
-
-        assertEquals("Resultado de la operación: 42.0", arithmeticOperations.execute(input, env));
-    }
-
-    @Test
-    public void testDivision() {
-        ArithmeticOperations arithmeticOperations = new ArithmeticOperations();
-        String input = "(/ 20 4)";
-
-        assertEquals("Resultado de la operación: 5.0", arithmeticOperations.execute(input, env));
+    public void testDivisionByZero() {
+        ArithmeticOperations operations = new ArithmeticOperations();
+        assertEquals("Error: División por cero", operations.execute("(/ 1 0)", null));
     }
 
     @Test

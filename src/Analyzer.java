@@ -5,7 +5,7 @@ public class Analyzer {
     // Método para analizar el string de entrada
     public int tokenizer(String input) {
 		//tokens para operaciones aritmeticas 
-		if (analyzer("^[(][ ]+([+-/*]+[ ])((([0-9]+[ ]))|(([+-/*]+[ ]))|(([(]+[ ]))|(([)]+[ ])))+[)][ ]*$",input)) 
+		if (analyzer("^\\(\\s*[+-/*]\\s+\\d+\\s+\\d+\\s*\\)$",input)) 
 			return 1;
         //tokens para setq
         else if (analyzer("^[(][ ]+(setq+[ ])+([a-z]+[ ])((.))+[ ]+[)][ ]*$",input)) 
