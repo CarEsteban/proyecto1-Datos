@@ -2,7 +2,7 @@ public class Predicate implements IFunction {
 
     @Override
     public String execute(String input, Environment env) {
-        String cleanedInput = input.trim().replaceAll("^\\(|\\)$", "");
+        String cleanedInput = input.trim().replaceAll("^\\(|\\)$", "").trim();
         String[] parts = cleanedInput.split("\\s+", 2);
         if (parts.length < 2) {
             return "Error: entrada no válida.";
@@ -10,7 +10,7 @@ public class Predicate implements IFunction {
 
         String command = parts[0].toLowerCase();
         String arguments = parts[1];
-        
+
         switch (command) {
             case "atom":
                 return evalAtom(arguments, env);
