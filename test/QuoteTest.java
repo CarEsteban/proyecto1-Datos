@@ -1,39 +1,30 @@
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 public class QuoteTest {
 
-    private Environment env;
+    @Test
+    public void testQuoteWithLiteral() {
+        Environment env = new Environment();
+        Quote quote = new Quote("(quote \"hello\")");
 
-    @Before
-    public void setUp() {
-        env = new Environment();
-        env.defineVariable("x", "10");
+        assertEquals("hello", quote.execute("(quote \"hello\")", env));
     }
 
     @Test
-    public void testEvaluateStringLiteral() {
-        Quote quote = new Quote("quote \"hello\"");
-        assertEquals("hello", quote.evaluate(env));
+    public void testQuoteWithVariable() {
+        Environment env = new Environment();
+        env.defineVariable("x", "world");
+        Quote quote = new Quote("(quote x)");
+
+        assertEquals("world", quote.execute("(quote x)", env));
     }
 
     @Test
-    public void testEvaluateVariable() {
-        Quote quote = new Quote("quote x");
-        assertEquals("quote 10", quote.evaluate(env));
-    }
+    public void testQuoteInvalidExpression() {
+        Environment env = new Environment();
+        Quote quote = new Quote("(quote)");
 
-    @Test
-    public void testEvaluateInvalidVariable() {
-        Quote quote = new Quote("quote y");
-        assertEquals("sintax error", quote.evaluate(env));
-    }
-
-    @Test
-    public void testEvaluateInvalidSyntax() {
-        Quote quote = new Quote("quote hello world");
-        assertEquals("sintax error", quote.evaluate(env));
+        assertEquals("Error: input no válido para Quote.", quote.execute("(quote)", env));
     }
 }
