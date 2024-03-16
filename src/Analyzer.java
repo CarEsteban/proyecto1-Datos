@@ -13,10 +13,11 @@ public class Analyzer {
         //tokens para quotes
         else if (analyzer("^[(][ ]+(quote+[ ]|'+[ ])((.))+[ ]+[)][ ]*$",input)) 
             return 3;
-        //tokens para cond                  
-        else if(analyzer("^[(][ ]+(cond+[ ])[(][ ]+[(][ ]+(<|>|==|<=|>=|equal)[ ]+(([a-z]+|[0-9]+)[ ]+)(([a-z]+|[0-9]+)[ ]+)[)][ ]+[(][ ]+(quote+[ ]|'+[ ])(.)*[ ]+[)][ ]+[)][ ]+[(][ ]+(quote+[ ]|'+[ ])(.)*[ ]+[)][ ]+[)][ ]*$", input))
+        //tokens para cond 
+        // estructura del cond : ( cond ( ( < 4 5 ) quote menor ) ( quote mayor ) )                 
+        else if(analyzer("^[(][ ]+(cond+[ ])[(][ ]+[(][ ]+(<|>|==|<=|>=|equal)[ ]+(([a-z]+|[0-9]+)[ ]+)(([a-z]+|[0-9]+)[ ]+)[)][ ]+(quote+[ ]|'+[ ])(.)*[ ]+[)][ ]+[(][ ]+(quote+[ ]|'+[ ])(.)*[ ]+[)][ ]+[)][ ]*$", input))
             return 4;
-        //tokens para cond                  
+        //tokens para predicados                  
         else if(analyzer("^[(][ ]+(atom|list|equal|<|>)(.)*[ ]+[)][ ]*$", input))
             return 5;
     
