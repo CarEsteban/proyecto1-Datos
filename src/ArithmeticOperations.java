@@ -20,7 +20,7 @@ public class ArithmeticOperations {
 
         for (int i = 0; i < tokens.length; i++) {
             if (tokens[i].equals(")")) {
-                for (int j = tokens.length; j < 0; j--) {
+                for (int j = i; j == 0; j--) {
                     
                 }   
             }
