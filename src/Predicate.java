@@ -28,38 +28,57 @@ public class Predicate implements IFunction {
     }
 
     private String evalAtom(String argument, Environment env) {
-        // Aquí se implementa la lógica para verificar si es un átomo
-        return (argument.matches("^\\d+$") || argument.matches("^[a-zA-Z]+$")) ? "true" : "false";
+        // Verificar si el argumento es una referencia de variable
+        String value = resolveVariable(argument, env);
+        // Verificar si el valor resuelto es un átomo
+        return (value.matches("^\\d+$") || value.matches("^[a-zA-Z]+$")) ? "true" : "false";
     }
 
     private String evalList(String argument, Environment env) {
-        // Aquí se implementa la lógica para verificar si es una lista
-        return argument.startsWith("(") && argument.endsWith(")") ? "true" : "false";
+        // Verificar si el argumento es una referencia de variable
+        String value = resolveVariable(argument, env);
+        // Verificar si el valor resuelto es una lista
+        return value.startsWith("(") && value.endsWith(")") ? "true" : "false";
     }
 
     private String evalEqual(String arguments, Environment env) {
-        // Aquí se implementa la lógica para comparar dos elementos
+        // Dividir los argumentos y resolverlos
         String[] parts = arguments.split("\\s+", 2);
-        return parts[0].equals(parts[1]) ? "true" : "false";
+        String firstValue = resolveVariable(parts[0], env);
+        String secondValue = resolveVariable(parts[1], env);
+        // Comparar los valores resueltos
+        return firstValue.equals(secondValue) ? "true" : "false";
     }
 
     private String evalLessThan(String arguments, Environment env) {
-        // Aquí se implementa la lógica para comparar números
+        // Dividir los argumentos y resolverlos
         String[] parts = arguments.split("\\s+");
         try {
-            return Integer.parseInt(parts[0]) < Integer.parseInt(parts[1]) ? "true" : "false";
+            int firstValue = Integer.parseInt(resolveVariable(parts[0], env));
+            int secondValue = Integer.parseInt(resolveVariable(parts[1], env));
+            return firstValue < secondValue ? "true" : "false";
         } catch (NumberFormatException e) {
             return "Error: Uno de los operandos no es un número válido";
         }
     }
 
     private String evalGreaterThan(String arguments, Environment env) {
-        // Aquí se implementa la lógica para comparar números
+        // Dividir los argumentos y resolverlos
         String[] parts = arguments.split("\\s+");
         try {
-            return Integer.parseInt(parts[0]) > Integer.parseInt(parts[1]) ? "true" : "false";
+            int firstValue = Integer.parseInt(resolveVariable(parts[0], env));
+            int secondValue = Integer.parseInt(resolveVariable(parts[1], env));
+            return firstValue > secondValue ? "true" : "false";
         } catch (NumberFormatException e) {
             return "Error: Uno de los operandos no es un número válido";
         }
+    }
+
+    // Método auxiliar para resolver el valor real de un argumento, ya sea una
+    // variable o un literal
+    private String resolveVariable(String argument, Environment env) {
+        // Verificar si el argumento es una variable y obtener su valor, si no, usar el
+        // argumento literal
+        return env.variableExists(argument) ? env.getVariable(argument) : argument;
     }
 }

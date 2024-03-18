@@ -24,9 +24,9 @@ public class Evaluator implements IEvaluator {
             case 4: // cond
                 evaluatedResult = evaluateCond(expression, env);
                 return evaluatedResult;
-            case 5: // cond
-                    evaluatedResult = evaluatePredicate(expression, env);
-                    return evaluatedResult;
+            case 5: // predicate
+                evaluatedResult = evaluatePredicate(expression, env);
+                return evaluatedResult;
             default:
                 evaluatedResult = "Invalid expression";
         }
@@ -41,21 +41,21 @@ public class Evaluator implements IEvaluator {
 
     private String evaluateSetQ(String expression, Environment env) {
         SetQ setQ = new SetQ();
-        return setQ.execute(expression,env);
+        return setQ.execute(expression, env);
     }
 
     private String evaluateQuote(String expression, Environment env) {
         Quote quote = new Quote();
-        return quote.execute(expression,env);
+        return quote.execute(expression, env);
     }
 
     private String evaluateCond(String expression, Environment env) {
         Cond cond = new Cond();
-        return cond.execute(expression,env);
+        return cond.execute(expression, env);
     }
 
     private String evaluatePredicate(String expression, Environment env) {
         Predicate predicate = new Predicate();
-        return predicate.execute(expression,env);
+        return predicate.execute(expression, env);
     }
 }
