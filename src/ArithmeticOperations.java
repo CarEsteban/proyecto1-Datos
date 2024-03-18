@@ -1,42 +1,86 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Stack;
-import java.util.List;
-import java.util.regex.Matcher;
+import java.util.Deque;
+import java.util.LinkedList;
 
+public class ArithmeticOperations implements IFunction {
+    private class Node {
+        String value;
+        ArrayList<Node> children;
 
-public class ArithmeticOperations {
-    public String execute(String input, Environment env) {
-        input = input.trim();
-        if (input.startsWith("(") && input.endsWith(")")) {
-            input = input.substring(1, input.length() - 1).trim();
+        public Node(String value) {
+            this.value = value;
+            children = new ArrayList<>();
         }
+    }
 
+    public String execute(String input, Environment env) {
+        ArrayList<Node> nodesList = new ArrayList<>();
         String[] tokens = input.split("\\s+");
-        Stack<String> stack = new Stack<>();
-        Stack<String> stackAuxi = new Stack<>();
-        String result = null;
+        
+        Node root = null;
+        Node currentNode = null;
 
-
-        for (int i = 0; i < tokens.length; i++) {
-            if (tokens[i].equals(")")) {
-                for (int j = i; j == 0; j--) {
-                    
-                }   
+        for (String token : tokens) {
+            if (isOperator(token)) {
+                Node operatorNode = new Node(token);
+                if (root == null) {
+                    root = operatorNode;
+                } else {
+                    currentNode.children.add(operatorNode);
+                }
+                nodesList.add(operatorNode); // Use add for push
+                currentNode = operatorNode;
+            } else if (token.equals("(")) {
+                // No action needed, just indicating the start of a subexpression
+            } else if (token.equals(")")) {
+                nodesList.remove(nodesList.size() - 1); // Use remove for pop
+                if (!nodesList.isEmpty()) {
+                    currentNode = nodesList.get(nodesList.size() - 1); // Use get for peek
+                }
+            } else { // It's a number
+                currentNode.children.add(new Node(token));
             }
         }
+        
+        int result = evaluate(root);
+        return Integer.toString(result);
+    }
 
-
-
-
-
-
-
-
+    private int evaluate(Node node) {
+        if (node.children.size() == 0) {
+            return Integer.parseInt(node.value);
+        }
+        int result = 0;
+        switch (node.value) {
+            case "+":
+                for (Node child : node.children) {
+                    result += evaluate(child);
+                }
+                break;
+            case "-":
+                result = evaluate(node.children.remove(0));
+                for (Node child : node.children) {
+                    result -= evaluate(child);
+                }
+                break;
+            case "*":
+                result = 1;
+                for (Node child : node.children) {
+                    result *= evaluate(child);
+                }
+                break;
+            case "/":
+                result = evaluate(node.children.remove(0));
+                for (Node child : node.children) {
+                    result /= evaluate(child);
+                }
+                break;
+        }
         return result;
     }
 
-    private static boolean isOperator(String token) {
-        return "+".equals(token) || "-".equals(token) || "*".equals(token) || "/".equals(token);
+    private boolean isOperator(String value) {
+        return value.equals("+") || value.equals("-") || value.equals("*") || value.equals("/");
     }
+
 }
