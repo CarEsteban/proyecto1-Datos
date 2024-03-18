@@ -1,8 +1,7 @@
 import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
 
 public class ArithmeticOperations implements IFunction {
+
     private class Node {
         String value;
         ArrayList<Node> children;
@@ -28,59 +27,81 @@ public class ArithmeticOperations implements IFunction {
                 } else {
                     currentNode.children.add(operatorNode);
                 }
-                nodesList.add(operatorNode); // Use add for push
+                nodesList.add(operatorNode);
                 currentNode = operatorNode;
             } else if (token.equals("(")) {
                 // No action needed, just indicating the start of a subexpression
             } else if (token.equals(")")) {
-                nodesList.remove(nodesList.size() - 1); // Use remove for pop
+                nodesList.remove(nodesList.size() - 1);
                 if (!nodesList.isEmpty()) {
-                    currentNode = nodesList.get(nodesList.size() - 1); // Use get for peek
+                    currentNode = nodesList.get(nodesList.size() - 1);
                 }
-            } else { // It's a number
+            } else {
+                // It's a variable or a number
                 currentNode.children.add(new Node(token));
             }
         }
         
-        int result = evaluate(root);
-        return Integer.toString(result);
+        // Before evaluation, check for variable definitions
+        String evalResult = evaluate(root, env);
+        if (evalResult == null) {
+            return "Variable undefined";
+        }
+        return evalResult;
     }
 
-    private int evaluate(Node node) {
+    private String evaluate(Node node, Environment env) {
         if (node.children.size() == 0) {
-            return Integer.parseInt(node.value);
+            // If it's a variable, check if it's defined in the environment
+            if (isVariable(node.value) && env.variableExists(node.value)) {
+                return env.getVariable(node.value);
+            } else if (isVariable(node.value) && !env.variableExists(node.value)) {
+                // Variable is not defined
+                return null;
+            }
+            // It's a number
+            return node.value;
         }
+        
         int result = 0;
-        switch (node.value) {
-            case "+":
-                for (Node child : node.children) {
-                    result += evaluate(child);
-                }
-                break;
-            case "-":
-                result = evaluate(node.children.remove(0));
-                for (Node child : node.children) {
-                    result -= evaluate(child);
-                }
-                break;
-            case "*":
-                result = 1;
-                for (Node child : node.children) {
-                    result *= evaluate(child);
-                }
-                break;
-            case "/":
-                result = evaluate(node.children.remove(0));
-                for (Node child : node.children) {
-                    result /= evaluate(child);
-                }
-                break;
+        String firstOperand = evaluate(node.children.remove(0), env);
+        if (firstOperand == null) {
+            return null;
         }
-        return result;
+        result = Integer.parseInt(firstOperand);
+
+        for (Node child : node.children) {
+            String childValue = evaluate(child, env);
+            if (childValue == null) {
+                return null;
+            }
+            int childInt = Integer.parseInt(childValue);
+            switch (node.value) {
+                case "+":
+                    result += childInt;
+                    break;
+                case "-":
+                    result -= childInt;
+                    break;
+                case "*":
+                    result *= childInt;
+                    break;
+                case "/":
+                    result /= childInt;
+                    break;
+            }
+        }
+        return String.valueOf(result);
+    }
+
+    private boolean isVariable(String value) {
+        // A variable is a single letter
+        return value.matches("[a-zA-Z]");
     }
 
     private boolean isOperator(String value) {
         return value.equals("+") || value.equals("-") || value.equals("*") || value.equals("/");
     }
-
+    
+    // El resto de la clase permanece igual
 }
