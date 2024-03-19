@@ -30,8 +30,11 @@ public class Predicate implements IFunction {
     private String evalAtom(String argument, Environment env) {
         // Verificar si el argumento es una referencia de variable
         String value = resolveVariable(argument, env);
-        // Verificar si el valor resuelto es un átomo
-        return (value.matches("^\\d+$") || value.matches("^[a-zA-Z]+$")) ? "true" : "false";
+        // Verificar si el valor resuelto es un átomo. Devuelve "nil" en lugar de
+        // "false" si es una lista.
+        boolean isAtom = value.matches("^\\d+$") || value.matches("^[a-zA-Z]+$");
+        boolean isList = value.startsWith("(") && value.endsWith(")");
+        return isAtom ? "true" : (isList ? "nil" : "false");
     }
 
     private String evalList(String argument, Environment env) {
