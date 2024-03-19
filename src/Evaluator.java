@@ -27,6 +27,8 @@ public class Evaluator implements IEvaluator {
             case 5: // predicate
                 evaluatedResult = evaluatePredicate(expression, env);
                 return evaluatedResult;
+            case 6: //defun
+                evaluatedResult = evaluateDefun(expression, env);
             default:
                 evaluatedResult = "Invalid expression";
         }
@@ -57,5 +59,10 @@ public class Evaluator implements IEvaluator {
     private String evaluatePredicate(String expression, Environment env) {
         Predicate predicate = new Predicate();
         return predicate.execute(expression, env);
+    }
+
+    private String evaluateDefun(String expression, Environment env) {
+        Defun defun = new Defun();
+        return defun.execute(expression, env);
     }
 }

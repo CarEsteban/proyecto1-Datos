@@ -20,6 +20,9 @@ public class Analyzer {
         //tokens para predicados                  
         else if(analyzer("^[(][ ]+(atom|list|equal|<|>)(.)*[ ]+[)][ ]*$", input))
             return 5;
+        // tokens para el defun
+        else if(analyzer("algo", input))
+            return 6;
     
 
 		else 
