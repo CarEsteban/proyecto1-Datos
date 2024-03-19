@@ -1,4 +1,5 @@
 import java.rmi.StubNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
@@ -10,6 +11,10 @@ public class Defun implements IFunction {
     public String execute(String input, Environment env) {
         String[] tokens = input.split("\\s+");
         
+        if (!Arrays.stream(tokens).anyMatch("defun"::equals)) {
+            return executeFunction(input, env);
+        }
+
         Stack<String> stackNombreFuncion = new Stack<>();
         Stack<String> stackCuerpoFuncion = new Stack<>();
        
@@ -35,6 +40,12 @@ public class Defun implements IFunction {
             }
         } 
 
+        ArrayList<String> parametros = new ArrayList<>();
+        for (int i = 1; i < stackNombreFuncion.size(); i++) {
+            parametros.add(stackNombreFuncion.get(i));
+        }
+        
+        env.defineVariable("parametros", parametros);
         
         StringBuilder nombreFuncion = new StringBuilder();
         for (String funcion : stackNombreFuncion) {
@@ -47,10 +58,48 @@ public class Defun implements IFunction {
             cuerpoFuncion.append(funcion).append(" "); // Concatena cada string del Stack
         }
 
+        //agregamos el nombre de la funcion como key y el cuerpo de la funcion como value
+        env.defineVariable(nombreFuncion.toString().trim(), cuerpoFuncion.toString().trim());
+
 
         
+        return nombreFuncion.toString()+"{set}";
+    }
+
+    public static String executeFunction(String operation, Environment env) {
+
+
+
+        IEvaluator evaluator = new Evaluator();
         
-        return cuerpoFuncion.toString();
+        String[] elementsOperation = operation.split(" ");
+
+        Stack<String> operationArray = new Stack<>();
+        operationArray.push("(");
+        for (int i = 0; i < elementsOperation.length; i++) {
+            if (env.variableExists(elementsOperation[i])) {
+                operationArray.push(env.getStringVariable(elementsOperation[i]));
+            }else{
+                operationArray.push(elementsOperation[i]);
+            }
+        }
+        operationArray.push(")");
+
+    
+        StringBuilder input = new StringBuilder();
+        for (String funcion : operationArray) {
+            input.append(funcion).append(" "); // Concatena cada string del Stack
+        }
+
+
+        try {
+            return evaluator.evaluate(input.toString().trim(), env);
+        } catch (Exception e) {
+            //e.printStackTrace();
+            return e.toString();
+        }
+
+
     }
     
 }

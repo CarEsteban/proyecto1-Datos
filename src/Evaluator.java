@@ -1,4 +1,7 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Stack;
 
 public class Evaluator implements IEvaluator {
 
@@ -36,13 +39,49 @@ public class Evaluator implements IEvaluator {
                 evaluatedResult = "-1";
         }
 
+        String expressionSimplified = expression.trim().replaceAll("[()]", "").trim();
+
+        String[] elements = expressionSimplified.split(" "); 
+
+        Stack<String> expressionWithParameters = new Stack<>();
+
+        String parameters, parameterWithOutBrackets ;
+
+        parameters = env.getStringVariable("parametros");
+        parameterWithOutBrackets = parameters.substring(1, parameters.length() - 1);
+
         
-        String[] tokens = expression.trim().replaceAll("[()]", "").trim().split("\\s+");
+        Stack<String> stackParametros = new Stack<>();
+
+
+        String[] separatedParametros = parameterWithOutBrackets.split(",\\s*");
+
+
+        // Para mantener el orden original al reconstruir el stack, se debe iterar en orden inverso
+        for (int i = 0 ; i < elements.length; i++) {
+            if (i==0) {
+                expressionWithParameters.push(elements[i]);
+                i++;
+            }
+            for(int j = 0 ; j < separatedParametros.length ; j++ ){
+                expressionWithParameters.push(separatedParametros[j]);
+                env.defineVariable(separatedParametros[j], elements[j+1]);
+            }
+            i = elements.length;
+        }
+
+        StringBuilder processedExpression = new StringBuilder();
+        for (String token : expressionWithParameters) {
+            processedExpression.append(token).append(" "); // Concatena cada string del Stack
+        }
+        
         
         //evalua solamente si el error proviene de una funcion ya existente para operarla, si no tira error de sintaxis
 
-        if(evaluatedResult.equals("-1") && env.variableExists(tokens[0]) ){
-            evaluatedResult = evaluateDefun(expression, env);
+        if(evaluatedResult.equals("-1") && env.variableExists(processedExpression.toString().trim()) ){
+            String input ;
+            input = env.getVariable(processedExpression.toString().trim());
+            evaluatedResult = evaluateDefun(input, env);
             return evaluatedResult;
         }
 
@@ -78,4 +117,5 @@ public class Evaluator implements IEvaluator {
         Defun defun = new Defun();
         return defun.execute(expression, env);
     }
+
 }
