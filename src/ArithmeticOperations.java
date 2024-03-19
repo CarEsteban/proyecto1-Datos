@@ -63,35 +63,41 @@ public class ArithmeticOperations implements IFunction {
             return node.value;
         }
         
-        int result = 0;
+        double result = 0;
         String firstOperand = evaluate(node.children.remove(0), env);
         if (firstOperand == null) {
             return null;
         }
-        result = Integer.parseInt(firstOperand);
+        result = Double.parseDouble(firstOperand);
 
         for (Node child : node.children) {
             String childValue = evaluate(child, env);
             if (childValue == null) {
                 return null;
             }
-            int childInt = Integer.parseInt(childValue);
+            double childDouble = Double.parseDouble(childValue);
             switch (node.value) {
                 case "+":
-                    result += childInt;
+                    result += childDouble;
                     break;
                 case "-":
-                    result -= childInt;
+                    result -= childDouble;
                     break;
                 case "*":
-                    result *= childInt;
+                    result *= childDouble;
                     break;
                 case "/":
-                    result /= childInt;
+                    if (childDouble == 0) {
+                        return "Error: Division by zero";
+                    }
+                    result /= childDouble;
                     break;
             }
         }
-        return String.valueOf(result);
+        
+        // Usar DecimalFormat para formatear el resultado a dos decimales
+        java.text.DecimalFormat df = new java.text.DecimalFormat("0.00");
+        return df.format(result);
     }
 
     private boolean isVariable(String value) {

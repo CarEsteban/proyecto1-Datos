@@ -31,12 +31,24 @@ public class Environment {
     }
 
     // int variableEntera = (int) environment.getVariable("miVariableEntera");
-    public Integer getIntegerVariable(String name) {
+    // public Integer getIntegerVariable(String name) {
+    //     Object value = getVariable(name);
+    //     if (value instanceof Integer) {
+    //         return (Integer) value;
+    //     } else {
+    //         throw new IllegalArgumentException("Variable '" + name + "' is not an integer.");
+    //     }
+    // }
+    public Double getDoubleVariable(String name) {
         Object value = getVariable(name);
-        if (value instanceof Integer) {
-            return (Integer) value;
+        if (value instanceof Double) {
+            return (Double) value;
         } else {
-            throw new IllegalArgumentException("Variable '" + name + "' is not an integer.");
+            try {
+                return Double.parseDouble(value.toString());
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Variable '" + name + "' is not a double.");
+            }
         }
     }
 
