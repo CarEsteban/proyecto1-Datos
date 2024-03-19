@@ -39,6 +39,7 @@ public class Evaluator implements IEvaluator {
         
         String[] tokens = expression.trim().replaceAll("[()]", "").trim().split("\\s+");
         
+        //evalua solamente si el error proviene de una funcion ya existente para operarla, si no tira error de sintaxis
 
         if(evaluatedResult.equals("-1") && env.variableExists(tokens[0]) ){
             evaluatedResult = evaluateDefun(expression, env);
