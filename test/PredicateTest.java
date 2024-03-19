@@ -33,6 +33,11 @@ public class PredicateTest {
     }
 
     @Test
+    public void testAtomWithListVariable() {
+        assertEquals("nil", predicate.execute("(atom list1)", environment));
+    }
+
+    @Test
     public void testListWithVariable() {
         assertEquals("true", predicate.execute("(list list1)", environment));
         assertEquals("false", predicate.execute("(list str1)", environment));
