@@ -6,8 +6,8 @@ public class Analyzer {
     public int tokenizer(String input) {
         
 		//tokens para operaciones aritmeticas 
-		if (analyzer("^[(][ ]+([+-/*]+[ ])((([0-9]+[ ]))|(([+-/*]+[ ]))|(([aA-zZ]+[ ]))|(([(]+[ ]))|(([)]+[ ])))+[)][ ]*$",input)) 
-			return 1;
+        if (analyzer("^[(][ ]+([+-/*]+[ ])((([-]?[0-9]+[ ]))|(([+-/*]+[ ]))|(([aA-zZ]+[ ]))|(([(]+[ ]))|(([)]+[ ])))+[)][ ]*$",input)) 
+            return 1;
         //tokens para setq
         else if (analyzer("^[(][ ]+(setq+[ ])+([a-z]+[ ])((.))+[ ]+[)][ ]*$",input)) 
             return 2;
