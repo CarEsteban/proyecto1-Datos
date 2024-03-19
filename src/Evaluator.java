@@ -29,6 +29,7 @@ public class Evaluator implements IEvaluator {
                 return evaluatedResult;
             case 6: //defun
                 evaluatedResult = evaluateDefun(expression, env);
+                return evaluatedResult;
             default:
                 evaluatedResult = "Invalid expression";
         }
