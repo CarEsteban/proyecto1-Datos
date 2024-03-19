@@ -1,46 +1,37 @@
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
-
-public class Cond implements IFunction  {
-    //para que funcione el cond, he imprimir en pantalla se usa quote
-    String operator, resp1,resp2,n1, n2;
+public class Cond implements IFunction {
     @Override
     public String execute(String input, Environment env) {
-        // reducir el input de entrada
+        // Simplifica el procesamiento del input
         String[] tokens = input.trim().replaceAll("[()]", "").trim().split("\\s+");
-        Predicate predicate = new Predicate();
-        Quote quote = new Quote();
-        operator = tokens[1];
-        n1 = tokens[2];
-        n2 = tokens[3];
-        resp1 = tokens[5];
-        resp2 = tokens[7];
-        
-        //falta hacer que se puedan tener espacios en la resp y manejarlo con el quote para seguir la estrcutura de lisp
-        if (tokens.length >= 3 & tokens.length ==8) {
-
-            String expressionToEvaluate, result,resultPredicate ;
-
-            expressionToEvaluate = "( "+operator+" "+n1+" "+n2+" )";
-            
-            if (predicate.execute(expressionToEvaluate, env).equals("true")) {
-                resultPredicate = resp1;
-            }else if(predicate.execute(expressionToEvaluate, env).equals("false")){
-                resultPredicate = resp2;
-            }else{
-                resultPredicate = "No valid";
-            }
-            
-
-            result = "( "+tokens[4]+" "+resultPredicate+" )";
-
-            return quote.execute(result, env);
-
-            
-        } else {
+        if (tokens.length != 8) {
             return "Error: input no válido.";
         }
+        
+        String operator = tokens[1];
+        String n1 = tokens[2];
+        String n2 = tokens[3];
+        String resp1 = tokens[5];
+        String resp2 = tokens[7];
+        String expressionToEvaluate = String.format("( %s %s %s )", operator, n1, n2);
+        
+        Predicate predicate = new Predicate();
+        Quote quote = new Quote();
+        String resultPredicate = predicate.execute(expressionToEvaluate, env);
+        
+        // Decide qué respuesta usar basándose en el resultado del predicado
+        String finalResult;
+        if ("true".equals(resultPredicate)) {
+            finalResult = resp1;
+        } else if ("false".equals(resultPredicate)) {
+            finalResult = resp2;
+        } else {
+            finalResult = "No valid";
+        }
+        
+        // Construye y devuelve el resultado final
+        String result = String.format("( %s %s )", tokens[4], finalResult);
+        return quote.execute(result, env);
     }
-    
 }

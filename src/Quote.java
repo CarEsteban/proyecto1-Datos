@@ -14,7 +14,7 @@ public class Quote implements IFunction {
             }
 
         } else {
-            return "Index out of bounds exception";
+            return "undefined";
         }
     }
 }
