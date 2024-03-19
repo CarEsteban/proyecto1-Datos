@@ -18,7 +18,8 @@ public class Analyzer {
         else if (analyzer("^[(][ ]+(quote+[ ]|'+[ ])((.))+[ ]+[)][ ]*$",input)) 
             return 3;
         //tokens para cond 
-        // try with this : ( cond ( ( < 4 5 ) quote menor ) ( quote mayor ) )                 
+        // try with this : ( cond ( ( < 4 5 ) quote menor ) ( quote mayor ) )    
+        //  defun condicional { x y palabra } { cond ( ( < x y ) quote palabra ) ( quote no ) } )              
         else if(analyzer("^[(][ ]+(cond+[ ])[(][ ]+[(][ ]+(<|>|==|<=|>=|equal)[ ]+(([a-z]+|[0-9]+)[ ]+)(([a-z]+|[0-9]+)[ ]+)[)][ ]+(quote+[ ]|'+[ ])(.)*[ ]+[)][ ]+[(][ ]+(quote+[ ]|'+[ ])(.)*[ ]+[)][ ]+[)][ ]*$", input))
             return 4;
         //tokens para predicados  
