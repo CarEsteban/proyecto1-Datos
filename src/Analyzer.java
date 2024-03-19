@@ -18,14 +18,16 @@ public class Analyzer {
         else if (analyzer("^[(][ ]+(quote+[ ]|'+[ ])((.))+[ ]+[)][ ]*$",input)) 
             return 3;
         //tokens para cond 
-        // estructura del cond : ( cond ( ( < 4 5 ) quote menor ) ( quote mayor ) )                 
+        // try with this : ( cond ( ( < 4 5 ) quote menor ) ( quote mayor ) )                 
         else if(analyzer("^[(][ ]+(cond+[ ])[(][ ]+[(][ ]+(<|>|==|<=|>=|equal)[ ]+(([a-z]+|[0-9]+)[ ]+)(([a-z]+|[0-9]+)[ ]+)[)][ ]+(quote+[ ]|'+[ ])(.)*[ ]+[)][ ]+[(][ ]+(quote+[ ]|'+[ ])(.)*[ ]+[)][ ]+[)][ ]*$", input))
             return 4;
-        //tokens para predicados                  
+        //tokens para predicados  
+        // try with this: ( atom valor ) ( list (1,3,4,5) )               
         else if(analyzer("^[(][ ]+(atom|list|equal|<|>)(.)*[ ]+[)][ ]*$", input))
             return 5;
         // tokens para el defun
-        // estructura base defun: ( defun sumar-numeros { n1 n2 } { + n1 n2 } )
+        // try with this: ( defun f-c { f } { * ( / 5 9 ) ( - f 32 ) } )    ( f-c 100 )
+        //  try with this: ( defun c-f { c } { + ( * c ( / 9 5 ) ) 32 } )   ( c-f 28)
         else if(analyzer("^[(][ ]+defun+[ ](.)*[ ]+[{][ ]+(.)*[ ]+[}][ ]+[{][ ]+(.)*[}][ ]+[)][ ]*$", input))
             return 6;
 		else 
