@@ -9,13 +9,10 @@ public class SetQ implements IFunction {
     public String execute(String input, Environment env) {
         // reducir el input de entrada
         String[] tokens = input.trim().replaceAll("[()]", "").trim().split("\\s+");
-        chars = String.join(" ", tokens);
-        int startIndex = 7;
-
-        
+                
         if (tokens.length >= 3) {
             String key = tokens[1];
-            value = chars.substring(startIndex).trim();
+            value = tokens[2];
             
             env.defineVariable(key, value);
             
