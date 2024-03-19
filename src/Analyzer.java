@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 public class Analyzer {
     // Método para analizar el string de entrada
     public int tokenizer(String input) {
+        
 		//tokens para operaciones aritmeticas 
 		if (analyzer("^[(][ ]+([+-/*]+[ ])((([0-9]+[ ]))|(([+-/*]+[ ]))|(([aA-zZ]+[ ]))|(([(]+[ ]))|(([)]+[ ])))+[)][ ]*$",input)) 
 			return 1;
@@ -21,7 +22,7 @@ public class Analyzer {
         else if(analyzer("^[(][ ]+(atom|list|equal|<|>)(.)*[ ]+[)][ ]*$", input))
             return 5;
         // tokens para el defun
-        else if(analyzer("^[(][ ]+defun+[ ](.)*[ ]+[(][ ]+(.)*[ ]+[)][ ]+[(][ ]+(.)*[)][ ]+[)][ ]*$", input))
+        else if(analyzer("^[(][ ]+value+[ ](.)*[ ]+[(][ ]+(.)*[ ]+[)][ ]+[(][ ]+(.)*[)][ ]+[)][ ]*$", input))
             return 6;
 		else 
 			return -1; 

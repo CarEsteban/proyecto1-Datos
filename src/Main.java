@@ -17,7 +17,7 @@ public class Main {
 
             result = evaluator.evaluate(input, env);
 
-            if (input.equals("exit")) {
+            if (input.equals("( exit )")) {
                 keep = false;
                 System.exit(0);
             } else if (result.equals("-1")) {

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Evaluator implements IEvaluator {
 
     private Analyzer analyzer;
@@ -31,10 +33,19 @@ public class Evaluator implements IEvaluator {
                 evaluatedResult = evaluateDefun(expression, env);
                 return evaluatedResult;
             default:
-                evaluatedResult = "Invalid expression";
+                evaluatedResult = "-1";
         }
 
-        return "-1";
+        
+        String[] tokens = expression.trim().replaceAll("[()]", "").trim().split("\\s+");
+        
+
+        if(evaluatedResult.equals("-1") && env.variableExists(tokens[0]) ){
+            evaluatedResult = evaluateDefun(expression, env);
+            return evaluatedResult;
+        }
+
+        return evaluatedResult;
     }
 
     private String evaluateArithmeticOperation(String expression, Environment env) {
