@@ -22,7 +22,8 @@ public class Analyzer {
         else if(analyzer("^[(][ ]+(atom|list|equal|<|>)(.)*[ ]+[)][ ]*$", input))
             return 5;
         // tokens para el defun
-        else if(analyzer("^[(][ ]+defun+[ ](.)*[ ]+[(][ ]+(.)*[ ]+[)][ ]+[(][ ]+(.)*[)][ ]+[)][ ]*$", input))
+        // estructura base defun: ( defun sumar-numeros ( n1 n2 ) ( + n1 n2 ) )
+        else if(analyzer("^[(][ ]+defun+[ ](.)*[ ]+[{][ ]+(.)*[ ]+[}][ ]+[{][ ]+(.)*[}][ ]+[)][ ]*$", input))
             return 6;
 		else 
 			return -1; 

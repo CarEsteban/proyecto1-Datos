@@ -1,51 +1,56 @@
-public class Defun implements IFunction {
+import java.rmi.StubNotFoundException;
+import java.util.Arrays;
+import java.util.Stack;
 
+import javax.swing.text.Style;
+
+public class Defun implements IFunction {
+    
     @Override
     public String execute(String input, Environment env) {
-        String[] tokens = input.trim().replaceAll("[()]", "").trim().split("\\s+");
-        String functionName = tokens[1];
-        String parameters = tokens[2];
-        String body = extractBody(tokens); // Extract the body from the input
-
-        // Define the function in the global environment
-        env.defineVariable(functionName, new UserDefinedFunction(parameters, body));
-
-        // Return a message indicating that the function has been defined
-        return "Function " + functionName + " defined.";
-    }
-
-    private String extractBody(String[] tokens) {
-        StringBuilder bodyBuilder = new StringBuilder();
-        boolean insideBody = false;
-        for (int i = 3; i < tokens.length; i++) {
-            if (tokens[i].equals("(")) {
-                insideBody = true;
-            } else if (tokens[i].equals(")")) {
-                insideBody = false;
+        String[] tokens = input.split("\\s+");
+        
+        Stack<String> stackNombreFuncion = new Stack<>();
+        Stack<String> stackCuerpoFuncion = new Stack<>();
+       
+        for (int i = 2; i < tokens.length; i++) {
+            if (tokens[i].trim().equals("}")) {
+                i++;
+                i++;
+                for (int j = i; j < tokens.length; j++) {
+                    if (tokens[j].trim().equals("}")) {
+                        //stackCuerpoFuncion.push(tokens[j]);
+                        i = tokens.length;
+                        break;
+                    }
+                    stackCuerpoFuncion.push(tokens[j]);
+                    
+                }
             }
-
-            if (insideBody) {
-                bodyBuilder.append(tokens[i]).append(" ");
+            else if(tokens[i].trim().equals("{")){
+                continue;
             }
+            if(i!=tokens.length){
+                stackNombreFuncion.push(tokens[i]);
+            }
+        } 
+
+        
+        StringBuilder nombreFuncion = new StringBuilder();
+        for (String funcion : stackNombreFuncion) {
+            nombreFuncion.append(funcion).append(" "); // Concatena cada string del Stack
         }
-        return bodyBuilder.toString().trim();
+
+        
+        StringBuilder cuerpoFuncion = new StringBuilder();
+        for (String funcion : stackCuerpoFuncion) {
+            cuerpoFuncion.append(funcion).append(" "); // Concatena cada string del Stack
+        }
+
+
+        
+        
+        return cuerpoFuncion.toString();
     }
-
-    private static class UserDefinedFunction {
-        private final String parameters;
-        private final String body;
-
-        public UserDefinedFunction(String parameters, String body) {
-            this.parameters = parameters;
-            this.body = body;
-        }
-
-        public String getParameters() {
-            return parameters;
-        }
-
-        public String getBody() {
-            return body;
-        }
-    }
+    
 }
