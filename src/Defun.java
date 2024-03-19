@@ -8,7 +8,7 @@ public class Defun implements IFunction {
         String body = tokens[3];
 
         // Define the function in the global environment
-        env.defineVariable(functionName, new UserDefinedFunction(parameters, body));
+        env.defineVariable(functionName, new UserDefinedFunction(parameters, body).toString());
 
         // Return a message indicating that the function has been defined
         return "Function " + functionName + " defined.";
@@ -23,12 +23,9 @@ public class Defun implements IFunction {
             this.body = body;
         }
 
-        public String getParameters() {
-            return parameters;
-        }
-
-        public String getBody() {
-            return body;
+        @Override
+        public String toString() {
+            return "Function: " + parameters + " => " + body;
         }
     }
 }
