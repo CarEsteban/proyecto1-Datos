@@ -5,13 +5,30 @@ public class Defun implements IFunction {
         String[] tokens = input.trim().replaceAll("[()]", "").trim().split("\\s+");
         String functionName = tokens[1];
         String parameters = tokens[2];
-        String body = tokens[3];
+        String body = extractBody(tokens); // Extract the body from the input
 
         // Define the function in the global environment
-        env.defineVariable(functionName, new UserDefinedFunction(parameters, body).toString());
+        env.defineVariable(functionName, new UserDefinedFunction(parameters, body));
 
         // Return a message indicating that the function has been defined
         return "Function " + functionName + " defined.";
+    }
+
+    private String extractBody(String[] tokens) {
+        StringBuilder bodyBuilder = new StringBuilder();
+        boolean insideBody = false;
+        for (int i = 3; i < tokens.length; i++) {
+            if (tokens[i].equals("(")) {
+                insideBody = true;
+            } else if (tokens[i].equals(")")) {
+                insideBody = false;
+            }
+
+            if (insideBody) {
+                bodyBuilder.append(tokens[i]).append(" ");
+            }
+        }
+        return bodyBuilder.toString().trim();
     }
 
     private static class UserDefinedFunction {
@@ -23,9 +40,12 @@ public class Defun implements IFunction {
             this.body = body;
         }
 
-        @Override
-        public String toString() {
-            return "Function: " + parameters + " => " + body;
+        public String getParameters() {
+            return parameters;
+        }
+
+        public String getBody() {
+            return body;
         }
     }
 }
