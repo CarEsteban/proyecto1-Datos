@@ -1,9 +1,7 @@
-import java.rmi.StubNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
-import javax.swing.text.Style;
 
 public class Defun implements IFunction {
     

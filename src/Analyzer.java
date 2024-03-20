@@ -20,7 +20,7 @@ public class Analyzer {
         //tokens para cond 
         // try with this : ( cond ( ( < 4 5 ) quote menor ) ( quote mayor ) )    
         //  defun condicional { x y palabra } { cond ( ( < x y ) quote palabra ) ( quote no ) } )              
-        else if(analyzer("^[(][ ]+(cond+[ ])[(][ ]+[(][ ]+(<|>|==|<=|>=|equal)[ ]+(([a-z]+|[0-9]+)[ ]+)(([a-z]+|[0-9]+)[ ]+)[)][ ]+(quote+[ ]|'+[ ])(.)*[ ]+[)][ ]+[(][ ]+(quote+[ ]|'+[ ])(.)*[ ]+[)][ ]+[)][ ]*$", input))
+        else if(analyzer("^[(][ ]+(cond+[ ])([(][ ]+[(][ ]+(<|>|==|<=|>=|equal)[ ]+(([a-z]+|[0-9]+)[ ]+)(([a-z]+|[0-9]+)[ ]+)[)][ ]+(quote+[ ]|'+[ ])(.)*[ ]+[)][ ]+)+([(][ ]+(quote+[ ]|'+[ ])(.)*[ ]+[)][ ]+)[)][ ]*$", input))
             return 4;
         //tokens para predicados  
         // try with this: ( atom valor ) ( list (1,3,4,5) )               
