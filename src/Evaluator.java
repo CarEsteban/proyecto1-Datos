@@ -47,9 +47,6 @@ public class Evaluator implements IEvaluator {
         parameters = env.getStringVariable("parametros");
         parameterWithOutBrackets = parameters.substring(1, parameters.length() - 1);
 
-        
-        Stack<String> stackParametros = new Stack<>();
-
 
         String[] separatedParametros = parameterWithOutBrackets.split(",\\s*");
 
