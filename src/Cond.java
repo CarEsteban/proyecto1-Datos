@@ -49,8 +49,13 @@ public class Cond implements IFunction {
                 return quote.execute(operation, env);
             }else{
                 String condition = operation.substring(2, 11);
+                
                 String resultOperation = "( "+operation.substring(12, operation.length()-2)+" )";
                 
+                if (!condition.endsWith(")")) {
+                    condition = operation.substring(2, 15);
+                    resultOperation = "( "+operation.substring(16, operation.length()-2)+" )";
+                }
                 if (predicate.execute(condition, env).equals("true")) {
                     return quote.execute(resultOperation, env);
                 }else{
