@@ -22,6 +22,10 @@ public class Predicate implements IFunction {
                 return evalLessThan(arguments, env);
             case ">":
                 return evalGreaterThan(arguments, env);
+            case ">=":
+                return evalGreaterThanOrEqual(arguments, env);
+            case "<=":
+                return evalLessThanOrEqual(arguments, env);
             default:
                 return "Error: Comando desconocido.";
         }
@@ -72,6 +76,31 @@ public class Predicate implements IFunction {
             int firstValue = Integer.parseInt(resolveVariable(parts[0], env));
             int secondValue = Integer.parseInt(resolveVariable(parts[1], env));
             return firstValue > secondValue ? "true" : "false";
+        } catch (NumberFormatException e) {
+            return "Error: Uno de los operandos no es un número válido";
+        }
+    }
+
+    
+    private String evalGreaterThanOrEqual(String arguments, Environment env) {
+        // Dividir los argumentos y resolverlos
+        String[] parts = arguments.split("\\s+");
+        try {
+            int firstValue = Integer.parseInt(resolveVariable(parts[0], env));
+            int secondValue = Integer.parseInt(resolveVariable(parts[1], env));
+            return firstValue >= secondValue ? "true" : "false";
+        } catch (NumberFormatException e) {
+            return "Error: Uno de los operandos no es un número válido";
+        }
+    }
+
+    private String evalLessThanOrEqual(String arguments, Environment env) {
+        // Dividir los argumentos y resolverlos
+        String[] parts = arguments.split("\\s+");
+        try {
+            int firstValue = Integer.parseInt(resolveVariable(parts[0], env));
+            int secondValue = Integer.parseInt(resolveVariable(parts[1], env));
+            return firstValue <= secondValue ? "true" : "false";
         } catch (NumberFormatException e) {
             return "Error: Uno de los operandos no es un número válido";
         }
