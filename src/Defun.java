@@ -2,9 +2,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
+/**
+ * Clase que implementa la interfaz IFunction para definir funciones personalizadas.
+ */
 
 public class Defun implements IFunction {
     
+    /**
+     * Método para ejecutar la función definición de función.
+     * @param input Cadena de entrada que contiene la definición de la función.
+     * @param env Entorno en el que se ejecuta la función, proporcionando acceso a las variables.
+     * @return Una cadena que indica el éxito de la definición de la función.
+     */
     @Override
     public String execute(String input, Environment env) {
         String[] tokens = input.split("\\s+");
@@ -64,6 +73,12 @@ public class Defun implements IFunction {
         return nombreFuncion.toString()+"{set}";
     }
 
+    /**
+     * Método estático para ejecutar una función definida previamente.
+     * @param operation Cadena de entrada que contiene la llamada a la función.
+     * @param env Entorno en el que se ejecuta la función, proporcionando acceso a las variables.
+     * @return Una cadena que representa el resultado de la ejecución de la función.
+     */
     public static String executeFunction(String operation, Environment env) {
 
 

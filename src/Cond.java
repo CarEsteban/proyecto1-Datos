@@ -1,6 +1,13 @@
 import java.util.Stack;
 
 public class Cond implements IFunction {
+    
+    /**
+     * Método para ejecutar la función cond.
+     * @param input Cadena de entrada que contiene las condiciones y operaciones a evaluar.
+     * @param env Entorno en el que se ejecuta la función, proporcionando acceso a las variables.
+     * @return Una cadena que representa el resultado de la evaluación de la función cond.
+     */
     @Override
     public String execute(String input, Environment env) {
         // Simplifica el procesamiento del input

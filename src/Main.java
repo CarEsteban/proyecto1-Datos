@@ -1,6 +1,15 @@
 import java.util.Scanner;
 
+/**
+ * Clase principal que funciona como intérprete de expresiones LISP-like.
+ */
 public class Main {
+
+    /**
+     * Método principal que ejecuta el intérprete.
+     * @param args Los argumentos de línea de comandos (no utilizados en este programa).
+     * @throws Exception Si ocurre un error durante la evaluación de expresiones.
+     */
     public static void main(String[] args) throws Exception {
         IEvaluator evaluator = new Evaluator();
         Environment env = new Environment();
@@ -17,17 +26,15 @@ public class Main {
 
             result = evaluator.evaluate(input, env);
 
-            if (input.equals("( exit )")) {
+            if (input.equals("(exit)")) {
                 keep = false;
                 System.exit(0);
             } else if (result.equals("-1")) {
-                System.out.println("Sintaxis Error");
+                System.out.println("Syntax Error");
             } else {
                 // here the result of any operation
                 System.out.println(result);
             }
-
         }
-
     }
 }

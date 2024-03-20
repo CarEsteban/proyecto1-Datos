@@ -3,6 +3,12 @@ import java.util.regex.Pattern;
 
 public class Analyzer {
     // Método para analizar el string de entrada
+    
+    /**
+     * Método para analizar el string de entrada y determinar su tipo.
+     * @param input Cadena de texto a analizar.
+     * @return Entero que representa el tipo de la cadena. Devuelve -1 si no coincide con ningún tipo.
+     */
     public int tokenizer(String input) {
         
 		//tokens para operaciones aritmeticas
@@ -35,6 +41,12 @@ public class Analyzer {
 			return -1; 
     }
 
+    /**
+     * Método privado para analizar la cadena de texto con una expresión regular.
+     * @param base Expresión regular a utilizar para la comparación.
+     * @param input Cadena de texto a analizar.
+     * @return Verdadero si la cadena coincide con la expresión regular, falso en caso contrario.
+     */
 
     private static boolean analyzer(String base, String input){
         Pattern pattern = Pattern.compile(base, Pattern.CASE_INSENSITIVE);

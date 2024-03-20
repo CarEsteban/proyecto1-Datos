@@ -1,5 +1,14 @@
+/**
+ * Clase que implementa la interfaz IFunction y proporciona funciones para evaluar predicados.
+ */
 public class Predicate implements IFunction {
 
+    /**
+     * Evalúa un predicado dado en función del comando proporcionado.
+     * @param input La entrada que contiene el predicado a evaluar.
+     * @param env El entorno en el que se evalúa el predicado.
+     * @return El resultado de la evaluación del predicado como una cadena.
+     */
     @Override
     public String execute(String input, Environment env) {
         String cleanedInput = input.trim().replaceAll("^\\(|\\)$", "").trim();
@@ -31,6 +40,12 @@ public class Predicate implements IFunction {
         }
     }
 
+    /**
+     * Evalúa si un argumento es un átomo.
+     * @param argument El argumento a evaluar.
+     * @param env El entorno en el que se evalúa el argumento.
+     * @return "true" si el argumento es un átomo, "nil" si es una lista, "false" en caso contrario.
+     */
     private String evalAtom(String argument, Environment env) {
         // Verificar si el argumento es una referencia de variable
         String value = resolveVariable(argument, env);
@@ -41,6 +56,12 @@ public class Predicate implements IFunction {
         return isAtom ? "true" : (isList ? "nil" : "false");
     }
 
+    /**
+     * Evalúa si un argumento es una lista.
+     * @param argument El argumento a evaluar.
+     * @param env El entorno en el que se evalúa el argumento.
+     * @return "true" si el argumento es una lista, "false" en caso contrario.
+     */
     private String evalList(String argument, Environment env) {
         // Verificar si el argumento es una referencia de variable
         String value = resolveVariable(argument, env);
@@ -48,6 +69,12 @@ public class Predicate implements IFunction {
         return value.startsWith("(") && value.endsWith(")") ? "true" : "false";
     }
 
+    /**
+     * Evalúa si dos argumentos son iguales.
+     * @param arguments Los dos argumentos separados por un espacio.
+     * @param env El entorno en el que se evalúan los argumentos.
+     * @return "true" si los argumentos son iguales, "false" en caso contrario.
+     */
     private String evalEqual(String arguments, Environment env) {
         // Dividir los argumentos y resolverlos
         String[] parts = arguments.split("\\s+", 2);
@@ -57,6 +84,12 @@ public class Predicate implements IFunction {
         return firstValue.equals(secondValue) ? "true" : "false";
     }
 
+    /**
+     * Evalúa si dos argumentos son iguales.
+     * @param arguments Los dos argumentos separados por un espacio.
+     * @param env El entorno en el que se evalúan los argumentos.
+     * @return "true" si los argumentos son iguales, "false" en caso contrario.
+     */
     private String evalLessThan(String arguments, Environment env) {
         // Dividir los argumentos y resolverlos
         String[] parts = arguments.split("\\s+");
@@ -69,6 +102,12 @@ public class Predicate implements IFunction {
         }
     }
 
+    /**
+     * Evalúa si dos argumentos son iguales.
+     * @param arguments Los dos argumentos separados por un espacio.
+     * @param env El entorno en el que se evalúan los argumentos.
+     * @return "true" si los argumentos son iguales, "false" en caso contrario.
+     */
     private String evalGreaterThan(String arguments, Environment env) {
         // Dividir los argumentos y resolverlos
         String[] parts = arguments.split("\\s+");
@@ -82,6 +121,12 @@ public class Predicate implements IFunction {
     }
 
     
+    /**
+     * Evalúa si dos argumentos son iguales.
+     * @param arguments Los dos argumentos separados por un espacio.
+     * @param env El entorno en el que se evalúan los argumentos.
+     * @return "true" si los argumentos son iguales, "false" en caso contrario.
+     */
     private String evalGreaterThanOrEqual(String arguments, Environment env) {
         // Dividir los argumentos y resolverlos
         String[] parts = arguments.split("\\s+");
@@ -94,6 +139,12 @@ public class Predicate implements IFunction {
         }
     }
 
+    /**
+     * Evalúa si dos argumentos son iguales.
+     * @param arguments Los dos argumentos separados por un espacio.
+     * @param env El entorno en el que se evalúan los argumentos.
+     * @return "true" si los argumentos son iguales, "false" en caso contrario.
+     */
     private String evalLessThanOrEqual(String arguments, Environment env) {
         // Dividir los argumentos y resolverlos
         String[] parts = arguments.split("\\s+");
@@ -106,6 +157,13 @@ public class Predicate implements IFunction {
         }
     }
 
+    /**
+     * Método auxiliar para resolver el valor real de un argumento, ya sea una
+     * variable o un literal.
+     * @param argument El argumento a resolver.
+     * @param env El entorno en el que se evalúa el argumento.
+     * @return El valor real del argumento como una cadena.
+     */
     // Método auxiliar para resolver el valor real de un argumento, ya sea una
     // variable o un literal
     private String resolveVariable(String argument, Environment env) {

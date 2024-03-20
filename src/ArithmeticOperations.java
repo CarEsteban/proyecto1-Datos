@@ -1,17 +1,34 @@
 import java.util.ArrayList;
 
+/**
+ * Clase que implementa la interfaz IFunction para realizar operaciones aritméticas.
+ */
 public class ArithmeticOperations implements IFunction {
 
+    /**
+     * Clase interna para representar un nodo en la expresión aritmética.
+     */
     private class Node {
         String value;
         ArrayList<Node> children;
 
+        /**
+         * Constructor de la clase Node.
+         * @param value El valor del nodo.
+         */
         public Node(String value) {
             this.value = value;
             children = new ArrayList<>();
         }
     }
 
+    /**
+     * Método para ejecutar la operación aritmética.
+     * @param input Cadena de entrada que contiene la expresión aritmética.
+     * @param env Entorno en el que se ejecuta la función, proporcionando acceso a las variables.
+     * @return Una cadena que representa el resultado de la expresión aritmética o un mensaje de error.
+     */
+    @Override
     public String execute(String input, Environment env) {
         ArrayList<Node> nodesList = new ArrayList<>();
         String[] tokens = input.split("\\s+");
@@ -50,6 +67,12 @@ public class ArithmeticOperations implements IFunction {
         return evalResult;
     }
 
+    /**
+     * Método recursivo para evaluar la expresión aritmética.
+     * @param node El nodo actual en el árbol de expresión aritmética.
+     * @param env Entorno en el que se ejecuta la función, proporcionando acceso a las variables.
+     * @return Una cadena que representa el resultado de la expresión aritmética o null si hay un error.
+     */
     private String evaluate(Node node, Environment env) {
         if (node.children.size() == 0) {
             // If it's a variable, check if it's defined in the environment
@@ -100,11 +123,21 @@ public class ArithmeticOperations implements IFunction {
         return df.format(result);
     }
 
+    /**
+     * Método para verificar si un valor es una variable.
+     * @param value El valor a verificar.
+     * @return true si el valor es una variable (una sola letra), de lo contrario false.
+     */
     private boolean isVariable(String value) {
         // A variable is a single letter
         return value.matches("[a-zA-Z]");
     }
 
+    /**
+     * Método para verificar si un valor es un operador aritmético.
+     * @param value El valor a verificar.
+     * @return true si el valor es un operador aritmético (+, -, *, /), de lo contrario false.
+     */
     private boolean isOperator(String value) {
         return value.equals("+") || value.equals("-") || value.equals("*") || value.equals("/");
     }
